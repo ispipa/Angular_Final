@@ -1,0 +1,37 @@
+<!--<div class="face">
+	<div class="band">
+		<div class="red"></div>
+		<div class="white"></div>
+		<div class="blue"></div>
+	</div>
+	<div class="eyes"></div>
+	<div class="dimples"></div>
+	<div class="mouth"></div>
+</div>
+
+<h1>Oops! Something went wrong!</h1>
+<div class="btn" routerLink="/heroes/list">Return to Home</div>-->
+
+<section class="container-error" >
+  <mat-card>
+    <mat-card-title class="text-control">
+      <h1>404</h1>
+      <span class="spacer"></span>
+      <mat-icon class="incomplete">error</mat-icon>
+    </mat-card-title>
+    <mat-card-subtitle class="mat-subheading-2">{{fecha | formatDate}}</mat-card-subtitle>
+    <mat-card-content fxLayout.xs="column" >
+      <div class="text-container">
+        <h1 class="mat-display-1" > task not found</h1>
+        <p class="mat-display-1">😣</p>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <span class="spacer"></span>
+      <button mat-raised-button color="warn" (click)="back()" >Back</button>
+    </mat-card-actions>
+  </mat-card>
+</section>
+
+
+

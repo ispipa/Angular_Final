@@ -1,0 +1,45 @@
+<section  fxFlexFill fxLayoutAlign="center center" >
+  <!--class="form-user"-->
+    <form  fxLayout="column" fxFlex="80" fxFlex.md="45" fxFlex.sm="50"  fxFlex.lg="35" fxLayoutGap="20px"  [formGroup]="userForm" #ngForm="ngForm">
+      <div fxLayoutAlign="center center">
+        <h1 class="title-register">Sign up</h1>
+      </div>
+      <div fxFlex.sm="10" fxLayoutAlign="center center">
+        <mat-icon mat-list-icon class="icon-register">person</mat-icon>
+      </div>
+      <mat-form-field >
+        <input matInput type="text" formControlName="username" maxlength="10" minlength="3" >
+        <mat-hint align="end">{{userForm.get('username')?.value.length}} / 10</mat-hint>
+        <mat-error  *ngIf="userForm.get('username')?.touched && userForm.get('username')?.errors?.['required'] || userForm.get('username')?.getError('minlength')?.['requiredLength']">
+          username is required and the min length is 3
+        </mat-error>
+        <mat-label><mat-icon>account_circle</mat-icon><b> Name</b></mat-label>
+      </mat-form-field>
+      <mat-form-field  >
+        <input matInput type="email"  formControlName="email" maxlength="50" >
+        <mat-error  *ngIf="userForm.get('email')?.touched  && userForm.get('email')?.errors?.['required'] || userForm.get('email')?.errors?.['email']">
+          Email is required and the input must be a valid email
+        </mat-error>
+        <mat-label><mat-icon>mail</mat-icon><b> Email</b></mat-label>
+      </mat-form-field>
+      <mat-form-field  >
+        <input matInput type="password" formControlName="password"  maxlength="8"  minlength="8">
+        <mat-hint align="end">{{userForm.get('password')?.value.length}} / 8</mat-hint>
+        <mat-error *ngIf="userForm.get('password')?.touched && userForm.get('password')?.errors?.['required'] || userForm.get('password')?.getError('minlength')?.['requiredLength']">
+          Password is required and the min length is 8
+        </mat-error>
+        <mat-label><mat-icon>lock</mat-icon><b> Password</b></mat-label>
+      </mat-form-field>
+      <div fxFlex="40" fxLayoutAlign="center center"  fxFlex.sm="100">
+        <button mat-raised-button color="primary" class="button-login" (click)="register()">
+          <b> Register</b>
+        </button>
+      </div>
+      <mat-divider></mat-divider>
+      <div fxFlex="40" >
+        <button mat-raised-button color="primary" class="button-login"   (click)="redirect()">
+          <b> Login</b>
+        </button>
+      </div>
+    </form>
+</section>

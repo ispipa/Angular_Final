@@ -1,0 +1,62 @@
+<section  class="card-container" >
+  <!--fxFlexFill fxLayout="row wrap"  fxLayout.xs="column"    fxLayoutAlign="center center" class="task-add"  -->
+  <form    [formGroup]="taskForm" #ngForm="ngForm" data-aos="zoom-in-down"
+        data-aos-duration="4000"
+        >
+    <mat-card>
+      <mat-card-title>
+        <mat-form-field >
+          <input matInput type="text" formControlName="title" required ngModel="{{task.title}}" maxlength="20" minlength="5">
+            <mat-label><mat-icon>title</mat-icon><b> Title</b></mat-label>
+            <mat-hint align="end">{{taskForm.get("title")?.value?.length}} / 20</mat-hint>
+            <mat-error *ngIf="taskForm.get('title')?.getError('minlength')?.['requiredLength']" >
+              5 characters minimum
+            </mat-error>
+        </mat-form-field>
+        <!--{{statusChecked.checked ? 'thumb_up' : 'thumb_down'}}-->
+        <button mat-flat-button  (click)="setStatus()"  class="{{statusForm  ? 'complete':'incomplete'}}">
+          <mat-icon>{{statusForm ? 'thumb_up' : 'thumb_down'}}</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <mat-form-field >
+          <input matInput  [matDatepicker]="picker"  formControlName="expiration_date"  [disabled]='disabled'  ngModel="{{task.expiration_date}}" [value]="null">
+          <mat-label><mat-icon>edit_calendar</mat-icon><b> Date</b></mat-label>
+          <mat-datepicker-toggle   matSuffix [for]="picker"></mat-datepicker-toggle>
+          <mat-datepicker  #picker [disabled]="false"></mat-datepicker>
+        </mat-form-field>
+        <!--{{statusChecked.checked ? 'thumb_up' : 'thumb_down'}}-->
+        <button mat-flat-button  (click)="removeDate()">
+          <mat-icon>'delete'</mat-icon>
+        </button>
+      </mat-card-subtitle>
+      <mat-card-content fxLayout="column">
+        <mat-form-field>
+          <textarea matInput class="textarea-height" formControlName="description" placeholder="Ex. I have to do the..." ngModel="{{task.description}}" maxlength="100" minlength="10"></textarea>
+          <mat-label><mat-icon>description</mat-icon><b> Description</b></mat-label>
+          <mat-hint align="end">{{taskForm.get("description")?.value?.length}} / 100</mat-hint>
+          <mat-error *ngIf="taskForm.get('description')?.getError('minlength')?.['requiredLength']">
+            10 characters minimum
+          </mat-error>
+        </mat-form-field>
+      </mat-card-content>
+      <mat-card-actions fxLayout="row" fxLayoutAlign="center center">
+        <button mat-button (click)="editTask ? update() : create()">Save</button>
+      </mat-card-actions>
+    </mat-card>
+  </form>
+  <div  *ngIf="!editTask" data-aos="zoom-in-down"  data-aos-duration="4000" class="max-width">
+    <mat-card >
+      <mat-card-title>
+        {{taskForm.get('title')?.value}}
+        <button mat-flat-button class="{{statusForm  ? 'complete':'incomplete'}}">
+          <mat-icon>{{statusForm ? 'thumb_up' : 'thumb_down'}}</mat-icon>
+        </button>
+      </mat-card-title>
+      <mat-card-subtitle>{{taskForm.get('expiration_date')?.value | formatDate}}</mat-card-subtitle>
+      <mat-card-content fxLayout="column" >
+        <p class="text-control">{{taskForm.get('description')?.value}}</p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</section>

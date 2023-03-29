@@ -1,0 +1,60 @@
+<section  fxLayout="column"  fxLayout.xs="column"    fxLayoutAlign="center center">
+  <!--fxLayout="column" fxFlexFill-->
+  <div  fxLayout ="row  wrap" fxLayout.xs="column"  fxLayoutGap="20px" class="filter-field" >
+    <div>
+      <mat-form-field >
+        <mat-label>Filter by dates</mat-label>
+        <mat-select (selectionChange)="filterByDate($event.value)" (valueChange)="Tasks = TasksCopy">
+          <mat-option *ngFor="let date of dateFilter" [value]="date.value">
+            {{date.viewValue}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div>
+        <mat-form-field >
+          <mat-label>Filter by state</mat-label>
+          <mat-select   (selectionChange)="filterByState($event.value)"   (valueChange)="Tasks = TasksCopy">
+            <mat-option  *ngFor="let state of stateFilter" [value]="state.value">
+              {{state.viewValue}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+    </div>
+  </div>
+  <div *ngIf="this.Tasks.length == 0  && this.TasksCopy.length == 0" class="container">
+    <h1  class="mat-display-3">Add tasks!!!!</h1>
+  </div>
+  <div *ngIf="this.Tasks.length == 0  && this.TasksCopy.length > 0" class="container">
+    <h1  class="mat-display-2">Not task for this condition</h1>
+  </div>
+  <!--fxLayout="row wrap"  fxLayout.xs="column"   fxLayoutAlign="center center" -->
+  <div   class="task-list card-container">
+    <!--fxFlex.sm="45" fxFlex.md="40" fxFlex.lg="35""    fxFlex.sm="20" -->
+    <div *ngFor="let task of Tasks;let i = index" data-aos="zoom-in"
+         data-aos-duration="3000">
+      <!--fxFlex.sm="100" fxFlex.md="100" fxFlex.lg="100"-->
+      <!--class="max-width"-->
+      <mat-card class="card">
+        <mat-card-title>
+          {{task.title}}
+          <span class="spacer"></span>
+          <mat-button-toggle (click)="status(i)" class="{{task.state ? 'complete':'incomplete'}}">
+            <mat-icon>{{task.state ? 'thumb_up' : 'thumb_down'}}</mat-icon>
+          </mat-button-toggle>
+        </mat-card-title>
+        <mat-card-subtitle>{{task.expiration_date | formatDate}}</mat-card-subtitle>
+        <mat-card-content fxLayout="column" class="{{listResized[i] ? 'content-view': ''}}">
+          <p class="text-control">{{task.description}}</p>
+        </mat-card-content>
+        <mat-card-actions fxLayout="row">
+          <button mat-button   (click)="edit(task.id_Task)" >Edit</button>
+          <button mat-button (click)="delete(i)">Delete</button>
+          <span class="spacer"></span>
+          <!--class="mat-button" -->
+          <button class="mat-button" (click)="view(i)" value="1">{{listResized[i] ? "Display": "Hide" }}</button>
+        </mat-card-actions>
+      </mat-card>
+    </div>
+  </div>
+</section>
