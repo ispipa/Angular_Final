@@ -13,7 +13,7 @@ export class ErrorComponent implements OnInit {
     this.fecha = new Date();
   }
   back(){
-    //window.history.back();
+    window.history.back();
   }
 
 }
